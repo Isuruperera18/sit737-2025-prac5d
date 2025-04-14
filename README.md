@@ -31,6 +31,7 @@ Before getting started, ensure you have the following installed:
 - **Visual Studio Code** (VSCode): A popular IDE for editing and running JavaScript applications.
 - **Node.js**: To run the application. You can download it from [nodejs.org](https://nodejs.org/).
 - **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Google Cloud SDK**: [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
 ## Getting Started
 
@@ -309,31 +310,24 @@ After installing the Docker extension, you need to log in to Docker Hub:
 #### 6. Build the Docker Image
 
 ```bash
-docker build -t sit737-2025-prac5p .
+docker build -t us-central1-docker.pkg.dev/sit737-25t1-warnakulas-b541a39/sit737-2025-prac5d/sit737-2025-prac5d:v1 .
 ```
 
-#### 7. Start Docker Compose
+#### 7. Authenticate Docker to GCP
 ```bash
-docker-compose up
-```
-or
-```bash
-docker run -p 3000:3000 sit737-2025-prac5p
-```
+gcloud auth configure-docker us-central1-docker.pkg.dev
 
-Visit http://localhost:3000/api/health to test the API.
-
+```
 #### 8. Push the Docker Image to a Registry (Optional)
 If you want to push the image to Docker Hub:
 
 ```bash
-docker tag sit737-2025-prac5p yourdockerhubusername/sit737-2025-prac5p
-docker push yourdockerhubusername/sit737-2025-prac5p
+docker push us-central1-docker.pkg.dev/sit737-25t1-warnakulas-b541a39/sit737-2025-prac5d/sit737-2025-prac5d:v1
 ```
+#### 9. Run the Image Locally
+```bash
+docker run -p 3000:3000 us-central1-docker.pkg.dev/sit737-25t1-warnakulas-b541a39/sit737-2025-prac5d/sit737-2025-prac5d:v1
+```
+Visit http://localhost:3000/api/health to test the API.
 
-After pushing to the Docker Hub registry, you can check it at https://hub.docker.com/r/your_docker_hub_username/sit737-2025-prac5p
-
-My docker image in this URL you can check it at https://hub.docker.com/r/s223182277/sit737-2025-prac5p
-
-## Part II – Container Health Check
-The `docker-compose.yml` file includes a health check that ensures the container is running properly. If the health check fails, Docker will attempt to restart the container automatically.
+After pushing to the Docker image in GCP registry, you can check it at https://console.cloud.google.com/artifacts/docker/sit737-25t1-warnakulas-b541a39/us-central1/sit737-2025-prac5d?invt=AbuvQg&project=sit737-25t1-warnakulas-b541a39
